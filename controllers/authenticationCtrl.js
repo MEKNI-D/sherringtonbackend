@@ -6,16 +6,19 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var crypto = require('crypto');
 var mailer = require("nodemailer");
+var xoauth2 = require('xoauth2');
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);
 };
-var smtpTransport = mailer.createTransport("SMTP",{
-    service: "Gmail",
+var smtpTransport = mailer.createTransport({
+    service: 'Gmail',
     auth: {
-        user: "mekni.donia92@gmail.com",
-        pass: "h&m10*:p"
+        xoauth2: xoauth2.createXOAuth2Generator({
+            user: 'mekni.donia92@gmail.com',
+            pass: ""
+        })
     }
 });
 
